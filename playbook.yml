@@ -1,0 +1,10 @@
+---
+- name: Configure my raspberry pi for my home automation tests
+  hosts: all
+  become: true
+  roles:
+    - raspi-config
+    - update
+    - firewall
+    - user
+    - ssh
