@@ -1,0 +1,30 @@
+---
+
+- name: Install ufw
+  apt:
+    name: ufw
+
+- name: Enable and start ufw
+  systemd:
+    name: ufw
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+
+- name: Allow connections
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+  loop:
+    - 22
+
+- name: Limit connection attempts on ssh
+  ufw:
+    rule: limit
+    port: ssh
+
+- name: Restart ufw
+  systemd:
+    name: ufw
+    daemon_reload: yes
+    state: restarted
